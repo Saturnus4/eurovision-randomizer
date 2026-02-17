@@ -33,26 +33,31 @@ def index():
 
 from flask import request
 
+from flask import request
+
 @app.route("/generate")
 def generate():
+    # Pick a weighted random song
     weights = [calculate_weight(song) for song in songs]
     selected = random.choices(songs, weights=weights, k=1)[0]
     session["song"] = selected
 
-    # Detect if the user is on a mobile device
-    user_agent = request.headers.get('User-Agent')
-    if "Mobile" in user_agent:
-        youtube_link = selected["youtube_mobile"]
-    else:
-        youtube_link = selected["youtube"]
+    # Default to desktop link
+    youtube_link = selected.get("youtube")
 
-    # Open YouTube in new tab (app on mobile)
+    # Detect mobile safely
+    user_agent = request.headers.get('User-Agent', "")
+    if "Mobile" in user_agent and "youtube_mobile" in selected:
+        youtube_link = selected["youtube_mobile"]
+
+    # Open YouTube in new tab (app on mobile if possible)
     return f'''
         <script>
             window.open("{youtube_link}", "_blank");
             window.location.href = "/reveal";
         </script>
     '''
+
 
 
 

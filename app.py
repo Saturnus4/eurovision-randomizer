@@ -31,19 +31,29 @@ def calculate_weight(song):
 def index():
     return render_template("index.html")
 
+from flask import request
+
 @app.route("/generate")
 def generate():
     weights = [calculate_weight(song) for song in songs]
     selected = random.choices(songs, weights=weights, k=1)[0]
     session["song"] = selected
 
-    # Open YouTube in a new tab and redirect to reveal page
+    # Detect if the user is on a mobile device
+    user_agent = request.headers.get('User-Agent')
+    if "Mobile" in user_agent:
+        youtube_link = selected["youtube_mobile"]
+    else:
+        youtube_link = selected["youtube"]
+
+    # Open YouTube in new tab (app on mobile)
     return f'''
         <script>
-            window.open("{selected['youtube']}", "_blank");
+            window.open("{youtube_link}", "_blank");
             window.location.href = "/reveal";
         </script>
     '''
+
 
 
 

@@ -1,56 +1,54 @@
-from flask import Flask, render_template, redirect, session
-import json
+from flask import Flask, render_template, session, request
 import random
 
 app = Flask(__name__)
 app.secret_key = "secretkey"
 
-import os
+# -------------------------------------------
+# Songs list (Java-style)
+# Format: ("description string", total_weight, youtube_link)
+# Copy-paste new songs here
+# ------------------------------------------
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(BASE_DIR, "songs.json")
 
-with open(json_path, "r", encoding="utf-8") as f:
-    songs = json.load(f)
+Pohja = 5
+Finaali = 5
+Top10 = 7
+Top3 = 9
+Suosikki = 6
+Suosikkitop = 4
+Extra = 9
 
-def calculate_weight(song):
-    weight = song["base"]
 
-    if song["ranking"] <= 3:
-        weight += 10
-    elif song["ranking"] <= 10:
-        weight += 5
-    elif song["ranking"] <= 26:
-        weight += 2
+songs = [
+    ("Wasted Love \nMaa: Austria\nVuosi: 2025 \nSija: Top3, 1", Pohja + Top3 + Suosikkitop, "https://www.youtube.com/watch?v=onOex2WXjbA"),
+    ("New Day Will Rise \nMaa: Israel\nVuosi: 2025 \nSija: Top3, 2", Pohja + Top3, "https://www.youtube.com/watch?v=_7zHp51j2WM&list=RD_7zHp51j2WM&start_radio=1"),
+    ("Espresso Macchiato \nMaa: Estonia\nVuosi: 2025 \nSija: Top3, 3", Pohja + Top3 + Suosikkitop, "https://www.youtube.com/watch?v=F3wsy8bywXQ&list=RDF3wsy8bywXQ&start_radio=1"),
+    ("Code \nMaa: Switzerland\nVuosi: 2024 \nSija: Top3, 1", Pohja + Top3 + Suosikkitop, "https://www.youtube.com/watch?v=CO_qJf-nW0k&list=RDCO_qJf-nW0k&start_radio=1"),
 
-    weight += song["personal_bonus"]
+]
 
-    return weight
+# -------------------------------------------
+# Routes
+# -------------------------------------------
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-from flask import request
-
-from flask import request
 
 @app.route("/generate")
 def generate():
-    # Pick a weighted random song
-    weights = [calculate_weight(song) for song in songs]
+    # Weighted random choice
+    weights = [song[1] for song in songs]
     selected = random.choices(songs, weights=weights, k=1)[0]
-    session["song"] = selected
 
-    # Default to desktop link
-    youtube_link = selected.get("youtube")
+    description, weight, youtube_link = selected
+    session["song"] = {"description": description, "youtube": youtube_link}
 
-    # Detect mobile safely
+    # Optional: detect mobile for separate YouTube link if you want
     user_agent = request.headers.get('User-Agent', "")
-    if "Mobile" in user_agent and "youtube_mobile" in selected:
-        youtube_link = selected["youtube_mobile"]
 
-    # Open YouTube in new tab (app on mobile if possible)
     return f'''
         <script>
             window.open("{youtube_link}", "_blank");
@@ -59,13 +57,17 @@ def generate():
     '''
 
 
-
-
-
 @app.route("/reveal")
 def reveal():
     song = session.get("song")
     return render_template("reveal.html", song=song)
 
+
+# -------------------------------------------
+# Run the app
+# -------------------------------------------
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
+

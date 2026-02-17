@@ -36,13 +36,15 @@ def generate():
     weights = [calculate_weight(song) for song in songs]
     selected = random.choices(songs, weights=weights, k=1)[0]
     session["song"] = selected
-    # Automatically open YouTube in a new tab
+
+    # Open YouTube in a new tab and redirect to reveal page
     return f'''
         <script>
             window.open("{selected['youtube']}", "_blank");
             window.location.href = "/reveal";
         </script>
     '''
+
 
 
 @app.route("/reveal")

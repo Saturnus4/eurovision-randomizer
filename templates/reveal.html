@@ -1,0 +1,11 @@
+<h1>Song Info</h1>
+
+{% if song %}
+<p><strong>Name:</strong> {{ song.name }}</p>
+<p><strong>Artist:</strong> {{ song.artist }}</p>
+<p><strong>Year:</strong> {{ song.year }}</p>
+<p><strong>Country:</strong> {{ song.country }}</p>
+<p><strong>Ranking:</strong> {{ song.ranking }}</p>
+{% else %}
+<p>No song selected yet.</p>
+{% endif %}

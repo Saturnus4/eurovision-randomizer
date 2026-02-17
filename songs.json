@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Euphoria",
+    "artist": "Loreen",
+    "year": 2012,
+    "country": "Sweden",
+    "ranking": 1,
+    "base": 5,
+    "personal_bonus": 3,
+    "youtube": "https://www.youtube.com/watch?v=Pfo-8z86x80"
+  },
+  {
+    "name": "Fairytale",
+    "artist": "Alexander Rybak",
+    "year": 2009,
+    "country": "Norway",
+    "ranking": 1,
+    "base": 4,
+    "personal_bonus": 0,
+    "youtube": "https://www.youtube.com/watch?v=WXwgZL4zx9o"
+  },
+  {
+    "name": "Shum",
+    "artist": "Go_A",
+    "year": 2021,
+    "country": "Ukraine",
+    "ranking": 5,
+    "base": 3,
+    "personal_bonus": 2,
+    "youtube": "https://www.youtube.com/watch?v=lqvzDkgok_g"
+  }
+]

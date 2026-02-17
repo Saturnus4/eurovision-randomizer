@@ -1,17 +1,29 @@
 <h1>Guess the Song!</h1>
-
 <p>Listen carefully...</p>
 
-<!-- YouTube embed -->
-<iframe width="560" height="315"
-    src="{{ song.youtube }}?autoplay=1&controls=0&rel=0&modestbranding=1"
-    title="YouTube video player"
+<!-- Hidden autoplaying iframe -->
+<iframe id="ytplayer" width="560" height="315"
+    src="{{ song.youtube }}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1"
     frameborder="0"
     allow="autoplay; encrypted-media"
     allowfullscreen>
 </iframe>
 
-<br><br>
+<br>
+
+<!-- Button to unmute / hear the song -->
+<button onclick="unmuteVideo()">Unmute Video</button>
+
+<!-- Button to reveal song info -->
 <a href="/reveal">
     <button>Reveal Song Info</button>
 </a>
+
+<script>
+function unmuteVideo() {
+    var iframe = document.getElementById("ytplayer");
+    var src = iframe.src;
+    iframe.src = src.replace("&mute=1", "");  // removes mute
+}
+</script>
+

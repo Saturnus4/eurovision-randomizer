@@ -5,9 +5,9 @@ app = Flask(__name__)
 app.secret_key = "secretkey"
 
 # -------------------------------------------
-# Songs list (Java-style)
-# Format: ("description string", total_weight, youtube_link)
-# Copy-paste new songs here
+# git add .
+# git commit -m "Test1"
+# git push origin master
 # ------------------------------------------
 
 
@@ -37,24 +37,18 @@ def index():
     return render_template("index.html")
 
 
+from flask import redirect
+
 @app.route("/generate")
 def generate():
-    # Weighted random choice
     weights = [song[1] for song in songs]
     selected = random.choices(songs, weights=weights, k=1)[0]
 
     description, weight, youtube_link = selected
     session["song"] = {"description": description, "youtube": youtube_link}
 
-    # Optional: detect mobile for separate YouTube link if you want
-    user_agent = request.headers.get('User-Agent', "")
+    return redirect("/reveal")
 
-    return f'''
-        <script>
-            window.open("{youtube_link}", "_blank");
-            window.location.href = "/reveal";
-        </script>
-    '''
 
 
 @app.route("/reveal")

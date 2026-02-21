@@ -1,17 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
-    <title>Song Reveal</title>
+    <title>Viikon Kappale</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        h1 {
+            font-size: 64px;
+            margin-bottom: 40px;
+        }
+
+        .song-info {
+            font-size: 32px;
+            line-height: 1.6;
+            margin-bottom: 50px;
+        }
+
+        a {
+            font-size: 24px;
+            text-decoration: none;
+            color: white;
+            background-color: #ff0050;
+            padding: 15px 30px;
+            border-radius: 10px;
+            transition: 0.2s ease;
+        }
+
+        a:hover {
+            background-color: #cc0040;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
+
 <body>
 
+    <h1>Viikon Kappale</h1>
 
-    <h1> Viikon Kappale </h1>
-
-    <p>
+    <div class="song-info">
         {{ song['description'] | replace('\n', '<br>') | safe }}
-    </p>
+    </div>
 
     <a href="/">Back to home</a>
 

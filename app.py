@@ -715,14 +715,17 @@ def generate():
     description, weight, youtube_link = selected
     session["song"] = {"description": description, "youtube": youtube_link}
 
-    return redirect("/reveal")
+    return redirect("/reveal?play=1")
 
 
+
+from flask import request
 
 @app.route("/reveal")
 def reveal():
     song = session.get("song")
-    return render_template("reveal.html", song=song)
+    play = request.args.get("play")
+    return render_template("reveal.html", song=song, play=play)
 
 
 # -------------------------------------------

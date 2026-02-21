@@ -47,14 +47,16 @@
         {{ song['description'] | replace('\n', '<br>') | safe }}
     </div>
 
-    <a href="/">Back to home</a>
+    <a href="/">Takaisin</a>
 
-    <script>
-        const youtubeLink = "{{ song['youtube'] }}";
-        if (youtubeLink) {
-            window.open(youtubeLink, "_blank");
-        }
-    </script>
+<script>
+    const shouldPlay = "{{ play }}";
+    const youtubeLink = "{{ song['youtube'] }}";
+
+    if (shouldPlay === "1" && youtubeLink) {
+        window.open(youtubeLink, "_blank");
+    }
+</script>
 
 </body>
 </html>

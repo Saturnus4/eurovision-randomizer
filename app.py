@@ -724,6 +724,9 @@ from flask import request
 @app.route("/reveal")
 def reveal():
     song = session.get("song")
+    if not song:
+        return redirect("/")
+
     play = request.args.get("play")
     return render_template("reveal.html", song=song, play=play)
 

@@ -7,22 +7,25 @@
     <style>
         body {
             text-align: center;
-            margin-top: 100px;
+            margin-top: 80px;
             font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        iframe {
+            width: 80%;
+            height: 400px;
+            border-radius: 12px;
         }
 
         button {
-            font-size: 30px;
-            padding: 25px 50px;
-            background-color: #e63946;
-            color: white;
+            margin-top: 30px;
+            font-size: 22px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #c1121f;
         }
     </style>
 </head>
@@ -30,18 +33,17 @@
 
     <h1>Kuuntele kappale</h1>
 
-    <a href="{{ song['youtube'] }}" target="_blank">
-        <button>▶ Avaa YouTubessa</button>
-    </a>
+    <iframe
+        src="https://www.youtube.com/embed/{{ song['youtube'].split('v=')[1] }}?autoplay=1"
+        allow="autoplay"
+        allowfullscreen>
+    </iframe>
 
-    <br><br>
+    <br>
 
     <a href="/reveal">
-        <button style="background-color: gray;">
-            Paljasta kappaleen informaatio
-        </button>
+        <button>Paljasta kappale</button>
     </a>
 
 </body>
 </html>
-

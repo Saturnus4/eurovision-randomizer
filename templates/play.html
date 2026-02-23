@@ -1,29 +1,47 @@
-<h1>Guess the Song!</h1>
-<p>Listen carefully...</p>
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Kuuntele kappale</title>
 
-<!-- Hidden autoplaying iframe -->
-<iframe id="ytplayer" width="560" height="315"
-    src="{{ song.youtube }}?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-</iframe>
+    <style>
+        body {
+            text-align: center;
+            margin-top: 100px;
+            font-family: Arial, sans-serif;
+        }
 
-<br>
+        button {
+            font-size: 30px;
+            padding: 25px 50px;
+            background-color: #e63946;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
 
-<!-- Button to unmute / hear the song -->
-<button onclick="unmuteVideo()">Unmute Video</button>
+        button:hover {
+            background-color: #c1121f;
+        }
+    </style>
+</head>
+<body>
 
-<!-- Button to reveal song info -->
-<a href="/reveal">
-    <button>Reveal Song Info</button>
-</a>
+    <h1>Kuuntele kappale</h1>
 
-<script>
-function unmuteVideo() {
-    var iframe = document.getElementById("ytplayer");
-    var src = iframe.src;
-    iframe.src = src.replace("&mute=1", "");  // removes mute
-}
-</script>
+    <a href="{{ song['youtube'] }}" target="_blank">
+        <button>▶ Avaa YouTubessa</button>
+    </a>
+
+    <br><br>
+
+    <a href="/reveal">
+        <button style="background-color: gray;">
+            Paljasta kappaleen informaatio
+        </button>
+    </a>
+
+</body>
+</html>
 

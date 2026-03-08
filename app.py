@@ -671,6 +671,23 @@ songs = [
 
 #(" \nMaa: \nVuosi: 2026, extra", Extra, ""),
 
+
+("Pray \nMaa: Poland\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=q78cnYIoF9Y&list=RDq78cnYIoF9Y&start_radio=1"),
+("Rosa \nMaa: Portugal\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=8emG9PghYXg&list=RD8emG9PghYXg&start_radio=1"),
+("My System \nMaa: Sweden\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=-7AB53ZNXpQ&list=RD-7AB53ZNXpQ&start_radio=1"),
+("Superstar \nMaa: San Marino\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=tC3eHYO38do&list=RDtC3eHYO38do&start_radio=1"),
+("Regarde \nMaa: France\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=ujoCYrvvTYQ&list=RDujoCYrvvTYQ&start_radio=1"),
+("Eins, Zwei, Drei \nMaa: United Kingdom\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=niMKvJ-Itq8&list=RDniMKvJ-Itq8&start_radio=1"),
+("Michelle \nMaa: Israel\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=xWCnWSoG8nI&list=RDxWCnWSoG8nI&start_radio=1"),
+("Choke Me \nMaa: Romania\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=KYLjJIf9qfc&list=RDKYLjJIf9qfc&start_radio=1"),
+("Eclipse \nMaa: Australia\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=EUMCr1pnaMY&list=RDEUMCr1pnaMY&start_radio=1"),
+("Kraj mene \nMaa: Serbia\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=xfyubEU1PR8&list=RDxfyubEU1PR8&start_radio=1"),
+("Per sempre sì \nMaa: Italy\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=IJ6punBGiUA&list=RDIJ6punBGiUA&start_radio=1"),
+("Fire \nMaa: Germany\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=cv0N_jCx-nA&list=RDcv0N_jCx-nA&start_radio=1"),
+("Liekinheitin \nMaa: Finland\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=9bfwNIYb96Q&list=RD9bfwNIYb96Q&start_radio=1"),
+("Bangaranga \nMaa: Bulgaria\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=_pkC9J6BPFY&list=RD_pkC9J6BPFY&start_radio=1"),
+("Ya ya ya \nMaa: Norway\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=MasllzWk_bQ&list=RDMasllzWk_bQ&start_radio=1"),
+("Sólo quiero más \nMaa: Lithuania\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=nWwMMMVkwRU&list=RDnWwMMMVkwRU&start_radio=1"),
 ("Tanzschein \nMaa: Austria\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=SPpL_ZuRTZY&list=RDSPpL_ZuRTZY&start_radio=1"),
 ("Dansing on the Ice \nMaa: Belgium\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=9sfI4g6DWTU&list=RD9sfI4g6DWTU&start_radio=1"),
 ("Ferto \nMaa: Greece\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=j_tDJ77ntPE&list=RDj_tDJ77ntPE&start_radio=1"),
@@ -715,6 +732,9 @@ def generate():
     description, weight, youtube_link = selected
     session["song"] = {"description": description, "youtube": youtube_link}
 
+    log_line = format_song_log(description)
+    print(log_line, flush=True)
+
     return redirect("/play")
 
 @app.route("/play")
@@ -734,6 +754,41 @@ def reveal():
 
     play = request.args.get("play")
     return render_template("reveal.html", song=song, play=play)
+
+
+import re
+
+def format_song_log(text):
+
+    name_match = re.search(r"^(.*?)\s*Maa:", text, re.S)
+    country_match = re.search(r"Maa:\s*(.*?)\s*Vuosi:", text)
+    year_match = re.search(r"Vuosi:\s*(\d{4})", text)
+    placement_match = re.search(r"Sija:\s*(.*)", text)
+
+    name = name_match.group(1).strip() if name_match else "?"
+    country = country_match.group(1).strip() if country_match else "?"
+    year = year_match.group(1) if year_match else "?"
+    placement_raw = placement_match.group(1).strip() if placement_match else "?"
+
+    # DNQ
+    if "Ei päässyt finaaliin" in placement_raw:
+        placement = "DNQ"
+
+    else:
+        num_match = re.search(r"\b(\d+)\b", placement_raw)
+        if num_match:
+            n = int(num_match.group(1))
+
+            if 10 <= n % 100 <= 20:
+                suffix = "th"
+            else:
+                suffix = {1:"st",2:"nd",3:"rd"}.get(n % 10,"th")
+
+            placement = f"{n}{suffix}"
+        else:
+            placement = placement_raw
+
+    return f"{name}, {country}, {year}, {placement}, "
 
 
 # -------------------------------------------

@@ -669,9 +669,15 @@ songs = [
 ("Angel si ti \nMaa: Bulgaria\nVuosi: 2010 \nSija: Ei päässyt finaaliin", Pohja, "https://www.youtube.com/watch?v=YTyTL04vlEw&list=RDYTyTL04vlEw&start_radio=1"),
 ("Lako je sve \nMaa: Croatia\nVuosi: 2010 \nSija: Ei päässyt finaaliin", Pohja, "https://www.youtube.com/watch?v=JYU37jzeQTo&list=RDJYU37jzeQTo&start_radio=1"),
 
+
 #(" \nMaa: \nVuosi: 2026, extra", Extra, ""),
 
 
+("On Replay \nMaa: Georgia\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=coh-lygCINY&list=RDcoh-lygCINY&start_radio=1"),
+("Paloma Rumba \nMaa: Armenia\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=5EXoK-lgocw&list=RD5EXoK-lgocw&start_radio=1"),
+("Alice \nMaa: Switzerland\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=PfpYGAzW5dM&list=RDPfpYGAzW5dM&start_radio=1"),
+("Crossroads \nMaa: Czechia\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=6ea25aRGpLo&list=RD6ea25aRGpLo&start_radio=1"),
+("Just go \nMaa: Azerbaijan\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=iMDBPe25JhM&list=RDiMDBPe25JhM&start_radio=1"),
 ("Pray \nMaa: Poland\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=q78cnYIoF9Y&list=RDq78cnYIoF9Y&start_radio=1"),
 ("Rosa \nMaa: Portugal\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=8emG9PghYXg&list=RD8emG9PghYXg&start_radio=1"),
 ("My System \nMaa: Sweden\nVuosi: 2026, extra", Extra, "https://www.youtube.com/watch?v=-7AB53ZNXpQ&list=RD-7AB53ZNXpQ&start_radio=1"),
